@@ -41,7 +41,6 @@ var queryString = require('queryString');
 
 var DEFAULT_OPTS = {
   api_key: undefined,
-  format: 'rest',
   tag_mode: 'any',
   text: '',
   min_upload_data: undefined,
@@ -108,7 +107,7 @@ function FlickrScraper(opts) {
 
 FlickrScraper.prototype.getSearchUrl = function() {
   var _this = this;
-  var uri = 'https://api.flickr.com/services/rest/?method=flickr.photos.search';
+  var uri = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1';
   Object.keys(this.opts).forEach(function(opt, i) {
     if(_this.opts[opt] !== undefined) {
       uri += '&' + opt + '=' + _this.opts[opt];
@@ -129,7 +128,7 @@ FlickrScraper.prototype.getImages = function(cb) {
       return res.json();
     })
     .then(function(json) {
-      var imageUrls = generateUrls(xtend(json, {format: _this.imageOpts.format }))[_this.imageOpts.dimensions];
+      var imageUrls = getUrls(json.photos.photo, _this.imageOpts);
       cb(imageUrls);
     });
 };
@@ -141,6 +140,14 @@ function parseOpts(opts) {
     }
   });
   return opts;
+}
+//generateUrls(xtend(json, {format: _this.imageOpts.format }));
+function getUrls(photos, opts) {
+  var images = [];
+  photos.forEach(function(photo) {
+    images.push(generateUrls(xtend(photo, {format: opts.format }))[opts.dimensions])
+  });
+  return images;
 }
 
 module.exports = FlickrScraper;
