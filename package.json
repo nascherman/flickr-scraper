@@ -1,0 +1,36 @@
+{
+  "name": "flickr-scraper",
+  "version": "1.0.0",
+  "description": "a flickr scraper node module",
+  "main": "index.js",
+  "scripts": {
+    "demo": "budo demo.js:bundle.js --live --debug",
+    "build": "browserify demo.js -t babelify  > bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nascherman/flickr-scraper.git"
+  },
+  "keywords": [
+    "flickr",
+    "scraper",
+    "api"
+  ],
+  "author": "Nick Scherman <n_scherman@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nascherman/flickr-scraper/issues"
+  },
+  "homepage": "https://github.com/nascherman/flickr-scraper#readme",
+  "dependencies": {
+    "flickr-generate-urls": "0.0.2",
+    "node-fetch": "^1.6.0",
+    "querystring": "^0.2.0",
+    "xtend": "^4.0.1"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "budo": "^9.0.0",
+    "domready": "^1.0.8"
+  }
+}
