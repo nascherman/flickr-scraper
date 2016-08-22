@@ -35,9 +35,6 @@ CONTENT TYPE
 */
 var xtend = require('xtend');
 var generateUrls = require('flickr-generate-urls');
-var nodeFetch = require('node-fetch');
-var queryString = require('queryString');
-
 
 var DEFAULT_OPTS = {
   api_key: undefined,
@@ -99,6 +96,12 @@ var DEFAULT_IMAGE_OPTS = {
 };
 
 function FlickrScraper(opts) {
+  if(!opts.api_key) {
+    if(typeof opts.api_key !== 'string' || opts.api_key.length <= 0) {
+      console.error('you need to specify an api key for photo search https://www.flickr.com/services/api/explore/flickr.photos.search');
+      return;
+    }
+  }
   this.opts = xtend(DEFAULT_OPTS, opts);
   this.opts.imageOpts = undefined;
   this.opts = parseOpts(this.opts);
@@ -141,7 +144,7 @@ function parseOpts(opts) {
   });
   return opts;
 }
-//generateUrls(xtend(json, {format: _this.imageOpts.format }));
+
 function getUrls(photos, opts) {
   var images = [];
   photos.forEach(function(photo) {

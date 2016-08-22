@@ -1,7 +1,9 @@
 var FlickrScraper = require('./');
 
+// api key here 
+var API_KEY = '';
 var opts = {
-  api_key: '22c74047dd054d19989b3ce7e4e15b81',
+  api_key: API_KEY,
   tag_mode: 'any',
   tags: 'cars',
   imageOpts: {
@@ -19,7 +21,7 @@ function demo() {
   //images.map(url => `<img src="${url}" />`).join('');
   flickrScraper.getImages(function(images) {
     var html = images.map(function(url) {
-      return `<img src="${url}" />`
+      return `<img src="${url}" />`;
     }).join('\n');
     document.body.innerHTML = html;
   });
