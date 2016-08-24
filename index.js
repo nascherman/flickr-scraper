@@ -35,6 +35,7 @@ CONTENT TYPE
 */
 var xtend = require('xtend');
 var generateUrls = require('flickr-generate-urls');
+var fetch = require('node-fetch');
 
 var DEFAULT_OPTS = {
   api_key: undefined,
